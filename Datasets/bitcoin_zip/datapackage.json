@@ -1,0 +1,398 @@
+{
+  "bytes": 2424108,
+  "datahub": {
+    "created": "2018-08-13T07:55:57.878455",
+    "findability": "published",
+    "flowid": "cryptocurrency/bitcoin/5",
+    "modified": "2018-11-23T15:21:09.595549",
+    "owner": "cryptocurrency",
+    "ownerid": "cryptocurrency"
+  },
+  "hash": "dee950dc7d3b9de505b6532aa29c5584",
+  "id": "cryptocurrency/bitcoin",
+  "licenses": [
+    {
+      "name": "ODC-PDDL",
+      "path": "http://opendatacommons.org/licenses/pddl/",
+      "title": "Open Data Commons Public Domain Dedication and License"
+    }
+  ],
+  "name": "bitcoin",
+  "resources": [
+    {
+      "bytes": 444135,
+      "datahub": {
+        "type": "original"
+      },
+      "dialect": {
+        "delimiter": ",",
+        "quoteChar": "\""
+      },
+      "dpp:streamedFrom": "https://s3.amazonaws.com/rawstore.datahub.io/26eb33c1369b7cd90203b6fd23383a46.csv",
+      "encoding": "ISO-8859-1",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "name": "bitcoin_original",
+      "path": "archive/bitcoin.csv",
+      "pathType": "local",
+      "profile": "data-resource",
+      "schema": {
+        "fields": [
+          {
+            "format": "default",
+            "name": "date",
+            "type": "date"
+          },
+          {
+            "format": "default",
+            "name": "txVolume(USD)",
+            "type": "string"
+          },
+          {
+            "format": "default",
+            "name": "adjustedTxVolume(USD)",
+            "type": "string"
+          },
+          {
+            "format": "default",
+            "name": "txCount",
+            "type": "integer"
+          },
+          {
+            "format": "default",
+            "name": "marketcap(USD)",
+            "type": "string"
+          },
+          {
+            "format": "default",
+            "name": "price(USD)",
+            "type": "string"
+          },
+          {
+            "format": "default",
+            "name": "exchangeVolume(USD)",
+            "type": "string"
+          },
+          {
+            "format": "default",
+            "name": "generatedCoins",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "fees",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "activeAddresses",
+            "type": "integer"
+          },
+          {
+            "format": "default",
+            "name": "averageDifficulty",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "paymentCount",
+            "type": "any"
+          },
+          {
+            "format": "default",
+            "name": "medianTxValue(USD)",
+            "type": "string"
+          },
+          {
+            "format": "default",
+            "name": "medianFee",
+            "type": "any"
+          },
+          {
+            "format": "default",
+            "name": "blockSize",
+            "type": "integer"
+          },
+          {
+            "format": "default",
+            "name": "blockCount",
+            "type": "integer"
+          }
+        ],
+        "missingValues": [
+          ""
+        ]
+      }
+    },
+    {
+      "bytes": 809,
+      "datahub": {
+        "type": "derived/report"
+      },
+      "description": "Validation report for tabular data",
+      "dpp:streamedFrom": "/tmp/tmprotx7ku9/cryptocurrency/bitcoin/validation_report/data/1f378e443fb703e5f8d273421eb11f3f/validation_report.json",
+      "format": "json",
+      "hash": "1f378e443fb703e5f8d273421eb11f3f",
+      "name": "validation_report",
+      "path": "data/validation_report.json",
+      "profile": "data-resource"
+    },
+    {
+      "bytes": 444891,
+      "datahub": {
+        "derivedFrom": [
+          "bitcoin"
+        ],
+        "type": "derived/csv"
+      },
+      "delimiter": ",",
+      "dialect": {
+        "delimiter": ",",
+        "doubleQuote": true,
+        "lineTerminator": "\r\n",
+        "quoteChar": "\"",
+        "skipInitialSpace": false
+      },
+      "dpp:streamedFrom": "/tmp/tmprotx7ku9/cryptocurrency/bitcoin/bitcoin_csv/data/b81f78f25fc22fc0eda6bedaed434c05/bitcoin_csv.csv",
+      "encoding": "utf-8",
+      "format": "csv",
+      "hash": "b81f78f25fc22fc0eda6bedaed434c05",
+      "mediatype": "text/csv",
+      "name": "bitcoin_csv",
+      "path": "data/bitcoin_csv.csv",
+      "pathType": "local",
+      "profile": "data-resource",
+      "quotechar": "\"",
+      "rowcount": 3605,
+      "schema": {
+        "fields": [
+          {
+            "format": "%Y-%m-%d",
+            "name": "date",
+            "type": "date"
+          },
+          {
+            "format": "default",
+            "name": "txVolume(USD)",
+            "type": "string"
+          },
+          {
+            "format": "default",
+            "name": "adjustedTxVolume(USD)",
+            "type": "string"
+          },
+          {
+            "format": "default",
+            "name": "txCount",
+            "type": "integer"
+          },
+          {
+            "format": "default",
+            "name": "marketcap(USD)",
+            "type": "string"
+          },
+          {
+            "format": "default",
+            "name": "price(USD)",
+            "type": "string"
+          },
+          {
+            "format": "default",
+            "name": "exchangeVolume(USD)",
+            "type": "string"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "generatedCoins",
+            "type": "number"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "fees",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "activeAddresses",
+            "type": "integer"
+          },
+          {
+            "decimalChar": ".",
+            "format": "default",
+            "groupChar": "",
+            "name": "averageDifficulty",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "paymentCount",
+            "type": "any"
+          },
+          {
+            "format": "default",
+            "name": "medianTxValue(USD)",
+            "type": "string"
+          },
+          {
+            "format": "default",
+            "name": "medianFee",
+            "type": "any"
+          },
+          {
+            "format": "default",
+            "name": "blockSize",
+            "type": "integer"
+          },
+          {
+            "format": "default",
+            "name": "blockCount",
+            "type": "integer"
+          }
+        ],
+        "missingValues": [
+          ""
+        ]
+      },
+      "signed": true
+    },
+    {
+      "bytes": 1524621,
+      "datahub": {
+        "derivedFrom": [
+          "bitcoin"
+        ],
+        "type": "derived/json"
+      },
+      "delimiter": ",",
+      "dialect": {
+        "delimiter": ",",
+        "quoteChar": "\""
+      },
+      "dpp:streamedFrom": "/tmp/tmprotx7ku9/cryptocurrency/bitcoin/bitcoin_json/data/3d47ebaea5707774cb076c9cd2e0ce8c/bitcoin_json.json",
+      "encoding": "utf-8",
+      "format": "json",
+      "hash": "3d47ebaea5707774cb076c9cd2e0ce8c",
+      "mediatype": "text/csv",
+      "name": "bitcoin_json",
+      "path": "data/bitcoin_json.json",
+      "pathType": "local",
+      "profile": "data-resource",
+      "quotechar": "\"",
+      "rowcount": 3605,
+      "schema": {
+        "fields": [
+          {
+            "format": "%Y-%m-%d",
+            "name": "date",
+            "type": "date"
+          },
+          {
+            "format": "default",
+            "name": "txVolume(USD)",
+            "type": "string"
+          },
+          {
+            "format": "default",
+            "name": "adjustedTxVolume(USD)",
+            "type": "string"
+          },
+          {
+            "format": "default",
+            "name": "txCount",
+            "type": "integer"
+          },
+          {
+            "format": "default",
+            "name": "marketcap(USD)",
+            "type": "string"
+          },
+          {
+            "format": "default",
+            "name": "price(USD)",
+            "type": "string"
+          },
+          {
+            "format": "default",
+            "name": "exchangeVolume(USD)",
+            "type": "string"
+          },
+          {
+            "format": "default",
+            "name": "generatedCoins",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "fees",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "activeAddresses",
+            "type": "integer"
+          },
+          {
+            "format": "default",
+            "name": "averageDifficulty",
+            "type": "number"
+          },
+          {
+            "format": "default",
+            "name": "paymentCount",
+            "type": "any"
+          },
+          {
+            "format": "default",
+            "name": "medianTxValue(USD)",
+            "type": "string"
+          },
+          {
+            "format": "default",
+            "name": "medianFee",
+            "type": "any"
+          },
+          {
+            "format": "default",
+            "name": "blockSize",
+            "type": "integer"
+          },
+          {
+            "format": "default",
+            "name": "blockCount",
+            "type": "integer"
+          }
+        ],
+        "missingValues": [
+          ""
+        ]
+      },
+      "signed": true
+    },
+    {
+      "bytes": 9652,
+      "dpp:streamedFrom": "/tmp/tmpkv1zrtl7/README.md",
+      "format": "md",
+      "name": "readme",
+      "path": "README.md"
+    }
+  ],
+  "title": "Bitcoin",
+  "views": [
+    {
+      "name": "graph",
+      "spec": {
+        "group": "date",
+        "series": [
+          "price(USD)"
+        ],
+        "type": "line"
+      },
+      "specType": "simple",
+      "title": "Bitcoin price"
+    }
+  ]
+}
