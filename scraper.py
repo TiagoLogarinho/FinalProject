@@ -17,7 +17,6 @@ url = 'https://www.coindesk.com/price/dogecoin'
 driver.get(url)
 driver.find_element_by_class_name('dropdown-header-title').click()
 driver.find_element_by_xpath('//*[@id="export-chart-element"]/div/section/div[2]/div/div/div/ul/li[2]').click()
-#print(driver.find_element(By.CLASS_NAME, 'price-large').text)
 
 while True:
     now = datetime.now().strftime('%S')
