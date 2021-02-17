@@ -8,7 +8,7 @@ from sklearn.neural_network import MLPRegressor
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import cross_val_score, train_test_split
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import max_error, r2_score
 from sklearn.utils import shuffle
 ###########################################
 
@@ -23,11 +23,11 @@ def linear_regression(x,y):
     model.fit(x_train, y_train)
     y_train_pred = model.predict(x_train)
     y_test_pred = model.predict(x_test)
-    scores = cross_val_score(model, x_test, y_test, cv=5, scoring='accuracy')
+    scores = cross_val_score(model, x_test, y_test, cv=5, scoring='r2')
     print("Training score: {:.3f}".format(model.score(x_train, y_train)))
     print("Testing score: {:.3f}".format(model.score(x_test, y_test)))
-    print("Model Accuracy: {:.3f}".format(model.score(y_test, y_test_pred)))
-    print("Cross Val Score: {:.3}".format(scores.mean()))
+    #print("Model Accuracy: {:.3f}".format(accuracy_score(y_test, y_test_pred)))
+    print("Cross Val Score: {:.3f}".format(scores.mean()))
     print("Actual Test labels: {0}".format(y_test[:5]))
     print("Predicted labels: {0}".format(y_test_pred[:5]))
     #plt.figure(figsize=(16,8))
