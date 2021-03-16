@@ -1,4 +1,1 @@
-
-plt.figure(figsize=(16,8))
-plt.plot(y[::-1])
-plt.show()
+random_forest_btc(btc_usd_data)
