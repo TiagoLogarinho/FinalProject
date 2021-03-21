@@ -10,4 +10,6 @@ btc_price_data = pd.read_csv('Datasets/archive/bitcoin_price.csv')
 #SVR is causing issues with the same implementation as LR
 ##NN is now fixed, as the "best hyperparameters" have been selected to run the model
 #Need to solve it tomorrow or wait until wednesday to show Diana
-random_forest_btc(btc_usd_data)
+#random_forest_btc(btc_usd_data)
+#incremental_model_daily_btc(btc_usd_data)
+incremental_model_minute_btc()
