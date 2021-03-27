@@ -225,7 +225,7 @@ def split_data(dataset):
     prices = pd.DataFrame(dataset.drop(['Date'], axis=1).values)
     prices.columns = names
     prediction_range = 30
-    test_size = int(len(prices)*0.2)
+    test_size = int(len(prices)*0.3)
     prices['Prediction'] = prices[['Close']].shift(-prediction_range)
     #Split the data into x and y
     x = np.array(prices.drop(['Close','Adj Close','Prediction'], axis=1))
@@ -268,8 +268,12 @@ def linear_regression_btc(dataset):
     print("R2 Testing Score: ",r2_score(y_test, y_test_pred))
     print("Explained Variance Train Score: ",explained_variance_score(y_train, y_train_pred))
     print("Explained Variance Testing Score: ",explained_variance_score(y_test, y_test_pred))
-    print("Mean Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
-    print("Mean Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
+    print("Mean Absolute Training Error: ", mean_absolute_error(y_train, y_train_pred))
+    print("Mean Absolute Testing Error: ", mean_absolute_error(y_test, y_test_pred))
+    print("Mean Squared Training Error: ", mean_squared_error(y_train, y_train_pred))
+    print("Mean Squared Testing Error: ", mean_squared_error(y_test, y_test_pred))
+    print("Mean Absolute Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
+    print("Mean Absolute Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
     new_y_train_pred, new_y_test_pred = prepare_plots(y, y_train, y_train_pred, y_test_pred)
     plot_data(y, new_y_train_pred, new_y_test_pred, ['Actual BTC Prices','Predicted Training Prices','Predicted Prices'],'LR BTC Price Prediction')
 
@@ -291,8 +295,12 @@ def linear_regression_eth(dataset):
     print("R2 Testing Score: ",r2_score(y_test, y_test_pred))
     print("Explained Variance Train Score: ",explained_variance_score(y_train, y_train_pred))
     print("Explained Variance Testing Score: ",explained_variance_score(y_test, y_test_pred))
-    print("Mean Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
-    print("Mean Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
+    print("Mean Absolute Training Error: ", mean_absolute_error(y_train, y_train_pred))
+    print("Mean Absolute Testing Error: ", mean_absolute_error(y_test, y_test_pred))
+    print("Mean Squared Training Error: ", mean_squared_error(y_train, y_train_pred))
+    print("Mean Squared Testing Error: ", mean_squared_error(y_test, y_test_pred))
+    print("Mean Absolute Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
+    print("Mean Absolute Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
     new_y_train_pred, new_y_test_pred = prepare_plots(y, y_train, y_train_pred, y_test_pred)
     plot_data(y, new_y_train_pred, new_y_test_pred, ['Actual Ethereum Prices','Predicted Training Prices','Predicted Prices'],'LR ETH Price Prediction')
 
@@ -314,10 +322,41 @@ def linear_regression_ltc(dataset):
     print("R2 Testing Score: ",r2_score(y_test, y_test_pred))
     print("Explained Variance Train Score: ",explained_variance_score(y_train, y_train_pred))
     print("Explained Variance Testing Score: ",explained_variance_score(y_test, y_test_pred))
-    print("Mean Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
-    print("Mean Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
+    print("Mean Absolute Training Error: ", mean_absolute_error(y_train, y_train_pred))
+    print("Mean Absolute Testing Error: ", mean_absolute_error(y_test, y_test_pred))
+    print("Mean Squared Training Error: ", mean_squared_error(y_train, y_train_pred))
+    print("Mean Squared Testing Error: ", mean_squared_error(y_test, y_test_pred))
+    print("Mean Absolute Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
+    print("Mean Absolute Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
     new_y_train_pred, new_y_test_pred = prepare_plots(y, y_train, y_train_pred, y_test_pred)
     plot_data(y, new_y_train_pred, new_y_test_pred, ['Actual Litecoin Prices','Predicted Training Prices','Predicted Prices'],'LR LTC Price Prediction')
+
+def linear_regression_ada(dataset):
+    x, y, x_train, x_test, y_train, y_test = split_data(dataset)
+    #Create model
+    model = LinearRegression()
+    #Tune model
+    model_params = {
+        'fit_intercept': ['True', 'False'],
+        'normalize': ['True', 'False'],
+        'n_jobs': [-1, 1]
+    }
+    tuned_model = GridSearchCV(model, model_params, cv=5, scoring='r2')
+    tuned_model.fit(x_train, y_train)
+    y_test_pred = tuned_model.predict(x_test)
+    y_train_pred = tuned_model.predict(x_train)
+    print("R2 Training Score: ",r2_score(y_train, y_train_pred))
+    print("R2 Testing Score: ",r2_score(y_test, y_test_pred))
+    print("Explained Variance Train Score: ",explained_variance_score(y_train, y_train_pred))
+    print("Explained Variance Testing Score: ",explained_variance_score(y_test, y_test_pred))
+    print("Mean Absolute Training Error: ", mean_absolute_error(y_train, y_train_pred))
+    print("Mean Absolute Testing Error: ", mean_absolute_error(y_test, y_test_pred))
+    print("Mean Squared Training Error: ", mean_squared_error(y_train, y_train_pred))
+    print("Mean Squared Testing Error: ", mean_squared_error(y_test, y_test_pred))
+    print("Mean Absolute Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
+    print("Mean Absolute Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
+    new_y_train_pred, new_y_test_pred = prepare_plots(y, y_train, y_train_pred, y_test_pred)
+    plot_data(y, new_y_train_pred, new_y_test_pred, ['Actual Cardano Prices','Predicted Training Prices','Predicted Prices'],'LR ADA Price Prediction')
 
 def linear_regression_xrp(dataset):
     x, y, x_train, x_test, y_train, y_test = split_data(dataset)
@@ -337,9 +376,12 @@ def linear_regression_xrp(dataset):
     print("R2 Testing Score: ",r2_score(y_test, y_test_pred))
     print("Explained Variance Train Score: ",explained_variance_score(y_train, y_train_pred))
     print("Explained Variance Testing Score: ",explained_variance_score(y_test, y_test_pred))
-    print("Mean Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
-    print("Mean Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
-    new_y_train_pred, new_y_test_pred = prepare_plots(y, y_train, y_train_pred, y_test_pred)
+    print("Mean Absolute Training Error: ", mean_absolute_error(y_train, y_train_pred))
+    print("Mean Absolute Testing Error: ", mean_absolute_error(y_test, y_test_pred))
+    print("Mean Squared Training Error: ", mean_squared_error(y_train, y_train_pred))
+    print("Mean Squared Testing Error: ", mean_squared_error(y_test, y_test_pred))
+    print("Mean Absolute Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
+    print("Mean Absolute Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
     plot_data(y, new_y_train_pred, new_y_test_pred, ['Actual Ripple Prices','Predicted Training Prices','Predicted Prices'],'LR XRP Price Prediction')
 
 def linear_regression_xlm(dataset):
@@ -360,9 +402,12 @@ def linear_regression_xlm(dataset):
     print("R2 Testing Score: ",r2_score(y_test, y_test_pred))
     print("Explained Variance Train Score: ",explained_variance_score(y_train, y_train_pred))
     print("Explained Variance Testing Score: ",explained_variance_score(y_test, y_test_pred))
-    print("Mean Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
-    print("Mean Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
-    new_y_train_pred, new_y_test_pred = prepare_plots(y, y_train, y_train_pred, y_test_pred)
+    print("Mean Absolute Training Error: ", mean_absolute_error(y_train, y_train_pred))
+    print("Mean Absolute Testing Error: ", mean_absolute_error(y_test, y_test_pred))
+    print("Mean Squared Training Error: ", mean_squared_error(y_train, y_train_pred))
+    print("Mean Squared Testing Error: ", mean_squared_error(y_test, y_test_pred))
+    print("Mean Absolute Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
+    print("Mean Absolute Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
     plot_data(y, new_y_train_pred, new_y_test_pred, ['Actual Stellar Lummens Prices','Predicted Training Prices','Predicted Prices'],'LR XLM Price Prediction')
 
 def lstm_btc(dataset):
@@ -407,8 +452,12 @@ def lstm_btc(dataset):
     print("R2 Testing Score: ",r2_score(prices_y_test, y_test_pred))
     print("Explained Variance Train Score: ",explained_variance_score(prices_y_train, y_train_pred))
     print("Explained Variance Testing Score: ",explained_variance_score(prices_y_test, y_test_pred))
-    print("Mean Percentage Training Error: ", mean_absolute_percentage_error(prices_y_train, y_train_pred))
-    print("Mean Percentage Testing Error: ", mean_absolute_percentage_error(prices_y_test, y_test_pred))
+    print("Mean Absolute Training Error: ", mean_absolute_error(prices_y_train, y_train_pred))
+    print("Mean Absolute Testing Error: ", mean_absolute_error(prices_y_test, y_test_pred))
+    print("Mean Squared Training Error: ", mean_squared_error(prices_y_train, y_train_pred))
+    print("Mean Squared Testing Error: ", mean_squared_error(prices_y_test, y_test_pred))
+    print("Mean Absolute Percentage Training Error: ", mean_absolute_percentage_error(prices_y_train, y_train_pred))
+    print("Mean Absolute Percentage Testing Error: ", mean_absolute_percentage_error(prices_y_test, y_test_pred))
     #Unscale data
     y_train_pred = y_train_pred * scale
     y_test_pred = y_test_pred * scale
@@ -461,8 +510,12 @@ def lstm_eth(dataset):
     print("R2 Testing Score: ",r2_score(prices_y_test, y_test_pred))
     print("Explained Variance Train Score: ",explained_variance_score(prices_y_train, y_train_pred))
     print("Explained Variance Testing Score: ",explained_variance_score(prices_y_test, y_test_pred))
-    print("Mean Percentage Training Error: ", mean_absolute_percentage_error(prices_y_train, y_train_pred))
-    print("Mean Percentage Testing Error: ", mean_absolute_percentage_error(prices_y_test, y_test_pred))
+    print("Mean Absolute Training Error: ", mean_absolute_error(prices_y_train, y_train_pred))
+    print("Mean Absolute Testing Error: ", mean_absolute_error(prices_y_test, y_test_pred))
+    print("Mean Squared Training Error: ", mean_squared_error(prices_y_train, y_train_pred))
+    print("Mean Squared Testing Error: ", mean_squared_error(prices_y_test, y_test_pred))
+    print("Mean Absolute Percentage Training Error: ", mean_absolute_percentage_error(prices_y_train, y_train_pred))
+    print("Mean Absolute Percentage Testing Error: ", mean_absolute_percentage_error(prices_y_test, y_test_pred))
     #Unscale data
     y_train_pred = y_train_pred * scale
     y_test_pred = y_test_pred * scale
@@ -515,8 +568,12 @@ def lstm_ltc(dataset):
     print("R2 Testing Score: ",r2_score(prices_y_test, y_test_pred))
     print("Explained Variance Train Score: ",explained_variance_score(prices_y_train, y_train_pred))
     print("Explained Variance Testing Score: ",explained_variance_score(prices_y_test, y_test_pred))
-    print("Mean Percentage Training Error: ", mean_absolute_percentage_error(prices_y_train, y_train_pred))
-    print("Mean Percentage Testing Error: ", mean_absolute_percentage_error(prices_y_test, y_test_pred))
+    print("Mean Absolute Training Error: ", mean_absolute_error(prices_y_train, y_train_pred))
+    print("Mean Absolute Testing Error: ", mean_absolute_error(prices_y_test, y_test_pred))
+    print("Mean Squared Training Error: ", mean_squared_error(prices_y_train, y_train_pred))
+    print("Mean Squared Testing Error: ", mean_squared_error(prices_y_test, y_test_pred))
+    print("Mean Absolute Percentage Training Error: ", mean_absolute_percentage_error(prices_y_train, y_train_pred))
+    print("Mean Absolute Percentage Testing Error: ", mean_absolute_percentage_error(prices_y_test, y_test_pred))
     #Unscale data
     y_train_pred = y_train_pred * scale
     y_test_pred = y_test_pred * scale
@@ -526,6 +583,64 @@ def lstm_ltc(dataset):
     new_y_train_pred[timestep_size:train_size] = y_train_pred
     new_y_test_pred[train_size+timestep_size+1:] = y_test_pred
     plot_data(prices, new_y_train_pred, new_y_test_pred, ['Actual Litecoin Prices','Predicted Training Prices','Predicted Testing Prices'], 'LSTM LTC Price Prediction')
+
+def lstm_ada(dataset):
+    #Split the data into training and testing set by date
+    names = ['Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume']
+    dataset = pd.DataFrame(dataset.drop(['Date'], axis=1).values)
+    prediction_range = 30
+    dataset.columns = names
+    dataset['Prediction'] = dataset[['Close']].shift(-prediction_range)
+    prices = np.array(dataset.drop(['Open','High','Low','Prediction','Adj Close','Volume'], axis=1).values)
+    predictions = np.array(dataset.drop(['Open','High','Low','Close','Adj Close','Volume'], axis=1).values)
+    timestep_size = 10
+    #Scale the data
+    scaler = MinMaxScaler()
+    prices_scaled = scaler.fit_transform(prices)
+    predictions_scaled = scaler.fit_transform(predictions)
+    scale = 1/scaler.scale_[0]
+    #Split the data into x and y
+    train_size = int(len(prices) * 0.8)
+    test_size = int(len(prices_scaled) - train_size)
+    prices_train_set, prices_test_set = prices_scaled[0:train_size,-prediction_range:], prices_scaled[train_size:len(prices_scaled)-prediction_range]
+    predictions_train_set, predictions_test_set = predictions_scaled[0:train_size,-prediction_range:], predictions_scaled[train_size:len(predictions_scaled)-prediction_range]
+    #Create datasets for lstm
+    prices_x_train, prices_y_train = create_datasets(prices_train_set, timestep_size)
+    prices_x_test, prices_y_test = create_datasets(prices_test_set, timestep_size)
+    predictions_x_train, predictions_y_train = create_datasets(predictions_train_set, timestep_size)
+    predictions_x_test, predictions_y_test = create_datasets(predictions_test_set, timestep_size)
+    #Create model
+    model = Sequential()
+    model.add(LSTM(units=50, activation='linear', return_sequences=True))
+    model.add(Dropout(.35))
+    model.add(LSTM(units=100, activation='linear', return_sequences=False))
+    model.add(Dropout(.35))
+    model.add(Dense(units=1))
+    #model.summary()
+    model.compile(loss='mse', optimizer='rmsprop', metrics=['mean_absolute_error'])
+    model.fit(prices_x_train, prices_y_train, batch_size=64, epochs=20)
+    #Predict the data
+    y_train_pred = model.predict(predictions_x_train)
+    y_test_pred = model.predict(predictions_x_test)
+    print("R2 Training Score: ",r2_score(prices_y_train, y_train_pred))
+    print("R2 Testing Score: ",r2_score(prices_y_test, y_test_pred))
+    print("Explained Variance Train Score: ",explained_variance_score(prices_y_train, y_train_pred))
+    print("Explained Variance Testing Score: ",explained_variance_score(prices_y_test, y_test_pred))
+    print("Mean Absolute Training Error: ", mean_absolute_error(prices_y_train, y_train_pred))
+    print("Mean Absolute Testing Error: ", mean_absolute_error(prices_y_test, y_test_pred))
+    print("Mean Squared Training Error: ", mean_squared_error(prices_y_train, y_train_pred))
+    print("Mean Squared Testing Error: ", mean_squared_error(prices_y_test, y_test_pred))
+    print("Mean Absolute Percentage Training Error: ", mean_absolute_percentage_error(prices_y_train, y_train_pred))
+    print("Mean Absolute Percentage Testing Error: ", mean_absolute_percentage_error(prices_y_test, y_test_pred))
+    #Unscale data
+    y_train_pred = y_train_pred * scale
+    y_test_pred = y_test_pred * scale
+    #Plot data
+    new_y_train_pred = [np.nan] * len(+prices)
+    new_y_test_pred = [np.nan] * len(+prices)
+    new_y_train_pred[timestep_size:train_size] = y_train_pred
+    new_y_test_pred[train_size+timestep_size+1:] = y_test_pred
+    plot_data(prices, new_y_train_pred, new_y_test_pred, ['Actual Cardano Prices','Predicted Training Prices','Predicted Testing Prices'], 'LSTM ADA Price Prediction')
 
 def lstm_xrp(dataset):
     #Split the data into training and testing set by date
@@ -569,8 +684,12 @@ def lstm_xrp(dataset):
     print("R2 Testing Score: ",r2_score(prices_y_test, y_test_pred))
     print("Explained Variance Train Score: ",explained_variance_score(prices_y_train, y_train_pred))
     print("Explained Variance Testing Score: ",explained_variance_score(prices_y_test, y_test_pred))
-    print("Mean Percentage Training Error: ", mean_absolute_percentage_error(prices_y_train, y_train_pred))
-    print("Mean Percentage Testing Error: ", mean_absolute_percentage_error(prices_y_test, y_test_pred))
+    print("Mean Absolute Training Error: ", mean_absolute_error(prices_y_train, y_train_pred))
+    print("Mean Absolute Testing Error: ", mean_absolute_error(prices_y_test, y_test_pred))
+    print("Mean Squared Training Error: ", mean_squared_error(prices_y_train, y_train_pred))
+    print("Mean Squared Testing Error: ", mean_squared_error(prices_y_test, y_test_pred))
+    print("Mean Absolute Percentage Training Error: ", mean_absolute_percentage_error(prices_y_train, y_train_pred))
+    print("Mean Absolute Percentage Testing Error: ", mean_absolute_percentage_error(prices_y_test, y_test_pred))
     #Unscale data
     y_train_pred = y_train_pred * scale
     y_test_pred = y_test_pred * scale
@@ -624,8 +743,12 @@ def lstm_xlm(dataset):
     print("R2 Testing Score: ",r2_score(prices_y_test, y_test_pred))
     print("Explained Variance Train Score: ",explained_variance_score(prices_y_train, y_train_pred))
     print("Explained Variance Testing Score: ",explained_variance_score(prices_y_test, y_test_pred))
-    print("Mean Percentage Training Error: ", mean_absolute_percentage_error(prices_y_train, y_train_pred))
-    print("Mean Percentage Testing Error: ", mean_absolute_percentage_error(prices_y_test, y_test_pred))
+    print("Mean Absolute Training Error: ", mean_absolute_error(prices_y_train, y_train_pred))
+    print("Mean Absolute Testing Error: ", mean_absolute_error(prices_y_test, y_test_pred))
+    print("Mean Squared Training Error: ", mean_squared_error(prices_y_train, y_train_pred))
+    print("Mean Squared Testing Error: ", mean_squared_error(prices_y_test, y_test_pred))
+    print("Mean Absolute Percentage Training Error: ", mean_absolute_percentage_error(prices_y_train, y_train_pred))
+    print("Mean Absolute Percentage Testing Error: ", mean_absolute_percentage_error(prices_y_test, y_test_pred))
     #Unscale data
     y_train_pred = y_train_pred * scale
     y_test_pred = y_test_pred * scale
@@ -647,8 +770,12 @@ def svr_btc(dataset):
     print("R2 Testing Score: ",r2_score(y_test, y_test_pred))
     print("Explained Variance Train Score: ",explained_variance_score(y_train, y_train_pred))
     print("Explained Variance Testing Score: ",explained_variance_score(y_test, y_test_pred))
-    print("Mean Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
-    print("Mean Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
+    print("Mean Absolute Training Error: ", mean_absolute_error(y_train, y_train_pred))
+    print("Mean Absolute Testing Error: ", mean_absolute_error(y_test, y_test_pred))
+    print("Mean Squared Training Error: ", mean_squared_error(y_train, y_train_pred))
+    print("Mean Squared Testing Error: ", mean_squared_error(y_test, y_test_pred))
+    print("Mean Absolute Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
+    print("Mean Absolute Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
     new_y_train_pred, new_y_test_pred = prepare_plots(y, y_train, y_train_pred, y_test_pred)
     plot_data(y, new_y_train_pred, new_y_test_pred, ['Actual Bitcoin Prices','Predicted Training Prices','Predicted Testing Prices'], 'SVR Bitcoin Price Prediction')
 
@@ -663,8 +790,12 @@ def svr_eth(dataset):
     print("R2 Testing Score: ",r2_score(y_test, y_test_pred))
     print("Explained Variance Train Score: ",explained_variance_score(y_train, y_train_pred))
     print("Explained Variance Testing Score: ",explained_variance_score(y_test, y_test_pred))
-    print("Mean Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
-    print("Mean Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
+    print("Mean Absolute Training Error: ", mean_absolute_error(y_train, y_train_pred))
+    print("Mean Absolute Testing Error: ", mean_absolute_error(y_test, y_test_pred))
+    print("Mean Squared Training Error: ", mean_squared_error(y_train, y_train_pred))
+    print("Mean Squared Testing Error: ", mean_squared_error(y_test, y_test_pred))
+    print("Mean Absolute Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
+    print("Mean Absolute Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
     new_y_train_pred, new_y_test_pred = prepare_plots(y, y_train, y_train_pred, y_test_pred)
     plot_data(y, new_y_train_pred, new_y_test_pred, ['Actual Ethereum Prices','Predicted Training Prices','Predicted Testing Prices'], 'SVR ETH Price Prediction')
 
@@ -679,10 +810,34 @@ def svr_ltc(dataset):
     print("R2 Testing Score: ",r2_score(y_test, y_test_pred))
     print("Explained Variance Train Score: ",explained_variance_score(y_train, y_train_pred))
     print("Explained Variance Testing Score: ",explained_variance_score(y_test, y_test_pred))
-    print("Mean Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
-    print("Mean Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
+    print("Mean Absolute Training Error: ", mean_absolute_error(y_train, y_train_pred))
+    print("Mean Absolute Testing Error: ", mean_absolute_error(y_test, y_test_pred))
+    print("Mean Squared Training Error: ", mean_squared_error(y_train, y_train_pred))
+    print("Mean Squared Testing Error: ", mean_squared_error(y_test, y_test_pred))
+    print("Mean Absolute Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
+    print("Mean Absolute Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
     new_y_train_pred, new_y_test_pred = prepare_plots(y, y_train, y_train_pred, y_test_pred)
     plot_data(y, new_y_train_pred, new_y_test_pred, ['Actual Litecoin Prices','Predicted Training Prices','Predicted Testing Prices'], 'SVR LTC Price Prediction')
+
+def svr_ada(dataset):
+    x, y, x_train, x_test, y_train, y_test = split_data(dataset)
+    #Create model
+    model = SVR(kernel='poly', degree=2, coef0=2, C=0.25, epsilon=0.8)
+    model.fit(x_train,y_train)
+    y_test_pred = model.predict(x_test)
+    y_train_pred = model.predict(x_train)
+    print("R2 Training Score: ",r2_score(y_train, y_train_pred))
+    print("R2 Testing Score: ",r2_score(y_test, y_test_pred))
+    print("Explained Variance Train Score: ",explained_variance_score(y_train, y_train_pred))
+    print("Explained Variance Testing Score: ",explained_variance_score(y_test, y_test_pred))
+    print("Mean Absolute Training Error: ", mean_absolute_error(y_train, y_train_pred))
+    print("Mean Absolute Testing Error: ", mean_absolute_error(y_test, y_test_pred))
+    print("Mean Squared Training Error: ", mean_squared_error(y_train, y_train_pred))
+    print("Mean Squared Testing Error: ", mean_squared_error(y_test, y_test_pred))
+    print("Mean Absolute Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
+    print("Mean Absolute Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
+    new_y_train_pred, new_y_test_pred = prepare_plots(y, y_train, y_train_pred, y_test_pred)
+    plot_data(y, new_y_train_pred, new_y_test_pred, ['Actual Cardano Prices','Predicted Training Prices','Predicted Testing Prices'], 'SVR ADA Price Prediction')
 
 def svr_xrp(dataset):
     x, y, x_train, x_test, y_train, y_test = split_data(dataset)
@@ -695,8 +850,12 @@ def svr_xrp(dataset):
     print("R2 Testing Score: ",r2_score(y_test, y_test_pred))
     print("Explained Variance Train Score: ",explained_variance_score(y_train, y_train_pred))
     print("Explained Variance Testing Score: ",explained_variance_score(y_test, y_test_pred))
-    print("Mean Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
-    print("Mean Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
+    print("Mean Absolute Training Error: ", mean_absolute_error(y_train, y_train_pred))
+    print("Mean Absolute Testing Error: ", mean_absolute_error(y_test, y_test_pred))
+    print("Mean Squared Training Error: ", mean_squared_error(y_train, y_train_pred))
+    print("Mean Squared Testing Error: ", mean_squared_error(y_test, y_test_pred))
+    print("Mean Absolute Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
+    print("Mean Absolute Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
     new_y_train_pred, new_y_test_pred = prepare_plots(y, y_train, y_train_pred, y_test_pred)
     plot_data(y, new_y_train_pred, new_y_test_pred, ['Actual Ripple Prices','Predicted Training Prices','Predicted Testing Prices'], 'SVR XRP Price Prediction')
 
@@ -711,8 +870,12 @@ def svr_xlm(dataset):
     print("R2 Testing Score: ",r2_score(y_test, y_test_pred))
     print("Explained Variance Train Score: ",explained_variance_score(y_train, y_train_pred))
     print("Explained Variance Testing Score: ",explained_variance_score(y_test, y_test_pred))
-    print("Mean Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
-    print("Mean Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
+    print("Mean Absolute Training Error: ", mean_absolute_error(y_train, y_train_pred))
+    print("Mean Absolute Testing Error: ", mean_absolute_error(y_test, y_test_pred))
+    print("Mean Squared Training Error: ", mean_squared_error(y_train, y_train_pred))
+    print("Mean Squared Testing Error: ", mean_squared_error(y_test, y_test_pred))
+    print("Mean Absolute Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
+    print("Mean Absolute Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
     new_y_train_pred, new_y_test_pred = prepare_plots(y, y_train, y_train_pred, y_test_pred)
     plot_data(y, new_y_train_pred, new_y_test_pred, ['Actual Stellar Lummens Prices','Predicted Training Prices','Predicted Testing Prices'], 'SVR XLM Price Prediction')
 
@@ -729,8 +892,12 @@ def neural_networks_btc(dataset):
     print("R2 Testing Score: ",r2_score(y_test, y_test_pred))
     print("Explained Variance Train Score: ",explained_variance_score(y_train, y_train_pred))
     print("Explained Variance Testing Score: ",explained_variance_score(y_test, y_test_pred))
-    print("Mean Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
-    print("Mean Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
+    print("Mean Absolute Training Error: ", mean_absolute_error(y_train, y_train_pred))
+    print("Mean Absolute Testing Error: ", mean_absolute_error(y_test, y_test_pred))
+    print("Mean Squared Training Error: ", mean_squared_error(y_train, y_train_pred))
+    print("Mean Squared Testing Error: ", mean_squared_error(y_test, y_test_pred))
+    print("Mean Absolute Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
+    print("Mean Absolute Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
     new_y_train_pred, new_y_test_pred = prepare_plots(y, y_train, y_train_pred, y_test_pred)
     plot_data(y, new_y_train_pred, new_y_test_pred, ['Actual Bitcoin Prices','Predicted Training Prices','Predicted Testing Prices'], 'MLPR(NN) Bitcoin Price Prediction')
 
@@ -746,8 +913,12 @@ def neural_networks_eth(dataset):
     print("R2 Testing Score: ",r2_score(y_test, y_test_pred))
     print("Explained Variance Train Score: ",explained_variance_score(y_train, y_train_pred))
     print("Explained Variance Testing Score: ",explained_variance_score(y_test, y_test_pred))
-    print("Mean Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
-    print("Mean Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
+    print("Mean Absolute Training Error: ", mean_absolute_error(y_train, y_train_pred))
+    print("Mean Absolute Testing Error: ", mean_absolute_error(y_test, y_test_pred))
+    print("Mean Squared Training Error: ", mean_squared_error(y_train, y_train_pred))
+    print("Mean Squared Testing Error: ", mean_squared_error(y_test, y_test_pred))
+    print("Mean Absolute Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
+    print("Mean Absolute Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
     new_y_train_pred, new_y_test_pred = prepare_plots(y, y_train, y_train_pred, y_test_pred)
     plot_data(y, new_y_train_pred, new_y_test_pred, ['Actual Ethereum Prices','Predicted Training Prices','Predicted Testing Prices'], 'MLPR(NN) ETH Price Prediction')
 
@@ -763,10 +934,35 @@ def neural_networks_ltc(dataset):
     print("R2 Testing Score: ",r2_score(y_test, y_test_pred))
     print("Explained Variance Train Score: ",explained_variance_score(y_train, y_train_pred))
     print("Explained Variance Testing Score: ",explained_variance_score(y_test, y_test_pred))
-    print("Mean Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
-    print("Mean Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
+    print("Mean Absolute Training Error: ", mean_absolute_error(y_train, y_train_pred))
+    print("Mean Absolute Testing Error: ", mean_absolute_error(y_test, y_test_pred))
+    print("Mean Squared Training Error: ", mean_squared_error(y_train, y_train_pred))
+    print("Mean Squared Testing Error: ", mean_squared_error(y_test, y_test_pred))
+    print("Mean Absolute Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
+    print("Mean Absolute Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
     new_y_train_pred, new_y_test_pred = prepare_plots(y, y_train, y_train_pred, y_test_pred)
     plot_data(y, new_y_train_pred, new_y_test_pred, ['Actual Litecoin Prices','Predicted Training Prices','Predicted Testing Prices'], 'MLPR(NN) LTC Price Prediction')
+
+def neural_networks_ada(dataset):
+    x, y, x_train, x_test, y_train, y_test = split_data(dataset)
+    #Create model
+    model = MLPRegressor(hidden_layer_sizes=(1000,), activation='identity', solver='adam', alpha=0.01, batch_size=50, learning_rate='adaptive', max_iter=1000)
+    #print(tuned_model.cv_results_)
+    model.fit(x_train, y_train)
+    y_train_pred = model.predict(x_train)
+    y_test_pred = model.predict(x_test)
+    print("R2 Training Score: ",r2_score(y_train, y_train_pred))
+    print("R2 Testing Score: ",r2_score(y_test, y_test_pred))
+    print("Explained Variance Train Score: ",explained_variance_score(y_train, y_train_pred))
+    print("Explained Variance Testing Score: ",explained_variance_score(y_test, y_test_pred))
+    print("Mean Absolute Training Error: ", mean_absolute_error(y_train, y_train_pred))
+    print("Mean Absolute Testing Error: ", mean_absolute_error(y_test, y_test_pred))
+    print("Mean Squared Training Error: ", mean_squared_error(y_train, y_train_pred))
+    print("Mean Squared Testing Error: ", mean_squared_error(y_test, y_test_pred))
+    print("Mean Absolute Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
+    print("Mean Absolute Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
+    new_y_train_pred, new_y_test_pred = prepare_plots(y, y_train, y_train_pred, y_test_pred)
+    plot_data(y, new_y_train_pred, new_y_test_pred, ['Actual Cardano Prices','Predicted Training Prices','Predicted Testing Prices'], 'MLPR(NN) ADA Price Prediction')
 
 def neural_networks_xrp(dataset):
     x, y, x_train, x_test, y_train, y_test = split_data(dataset)
@@ -779,8 +975,12 @@ def neural_networks_xrp(dataset):
     print("R2 Testing Score: ",r2_score(y_test, y_test_pred))
     print("Explained Variance Train Score: ",explained_variance_score(y_train, y_train_pred))
     print("Explained Variance Testing Score: ",explained_variance_score(y_test, y_test_pred))
-    print("Mean Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
-    print("Mean Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
+    print("Mean Absolute Training Error: ", mean_absolute_error(y_train, y_train_pred))
+    print("Mean Absolute Testing Error: ", mean_absolute_error(y_test, y_test_pred))
+    print("Mean Squared Training Error: ", mean_squared_error(y_train, y_train_pred))
+    print("Mean Squared Testing Error: ", mean_squared_error(y_test, y_test_pred))
+    print("Mean Absolute Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
+    print("Mean Absolute Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
     new_y_train_pred, new_y_test_pred = prepare_plots(y, y_train, y_train_pred, y_test_pred)
     plot_data(y, new_y_train_pred, new_y_test_pred, ['Actual Ripple Prices','Predicted Training Prices','Predicted Testing Prices'], 'MLPR(NN) XRP Price Prediction')
 
@@ -795,13 +995,17 @@ def neural_networks_xlm(dataset):
     print("R2 Testing Score: ",r2_score(y_test, y_test_pred))
     print("Explained Variance Train Score: ",explained_variance_score(y_train, y_train_pred))
     print("Explained Variance Testing Score: ",explained_variance_score(y_test, y_test_pred))
-    print("Mean Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
-    print("Mean Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
+    print("Mean Absolute Training Error: ", mean_absolute_error(y_train, y_train_pred))
+    print("Mean Absolute Testing Error: ", mean_absolute_error(y_test, y_test_pred))
+    print("Mean Squared Training Error: ", mean_squared_error(y_train, y_train_pred))
+    print("Mean Squared Testing Error: ", mean_squared_error(y_test, y_test_pred))
+    print("Mean Absolute Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
+    print("Mean Absolute Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
     new_y_train_pred, new_y_test_pred = prepare_plots(y, y_train, y_train_pred, y_test_pred)
     plot_data(y, new_y_train_pred, new_y_test_pred, ['Actual Stellar Lummens Prices','Predicted Training Prices','Predicted Testing Prices'], 'MLPR(NN) XLM Price Prediction')
 
 #random forests
-def random_forest_btc(dataset):
+def extra_trees_btc(dataset):
     x, y, x_train, x_test, y_train, y_test = split_data(dataset)
     #Create model#model = RandomForestRegressor(criterion='mse', min_samples_split=2, min_samples_leaf=1, min_weight_fraction_leaf=0, max_features='auto', bootstrap=False, warm_start=True)
     model = ExtraTreesRegressor()
@@ -812,12 +1016,16 @@ def random_forest_btc(dataset):
     print("R2 Testing Score: ",r2_score(y_test, y_test_pred))
     print("Explained Variance Train Score: ",explained_variance_score(y_train, y_train_pred))
     print("Explained Variance Testing Score: ",explained_variance_score(y_test, y_test_pred))
-    print("Mean Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
-    print("Mean Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
+    print("Mean Absolute Training Error: ", mean_absolute_error(y_train, y_train_pred))
+    print("Mean Absolute Testing Error: ", mean_absolute_error(y_test, y_test_pred))
+    print("Mean Squared Training Error: ", mean_squared_error(y_train, y_train_pred))
+    print("Mean Squared Testing Error: ", mean_squared_error(y_test, y_test_pred))
+    print("Mean Absolute Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
+    print("Mean Absolute Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
     new_y_train_pred, new_y_test_pred = prepare_plots(y, y_train, y_train_pred, y_test_pred)
     plot_data(y, new_y_train_pred, new_y_test_pred, ['Actual Bitcoin Prices','Predicted Training Prices','Predicted Testing Prices'], 'RF Bitcoin Price Prediction')
     
-def random_forest_eth(dataset):
+def extra_trees_eth(dataset):
     x, y, x_train, x_test, y_train, y_test = split_data(dataset)
     #Create model
     model = ExtraTreesRegressor()
@@ -828,12 +1036,16 @@ def random_forest_eth(dataset):
     print("R2 Testing Score: ",r2_score(y_test, y_test_pred))
     print("Explained Variance Train Score: ",explained_variance_score(y_train, y_train_pred))
     print("Explained Variance Testing Score: ",explained_variance_score(y_test, y_test_pred))
-    print("Mean Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
-    print("Mean Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
+    print("Mean Absolute Training Error: ", mean_absolute_error(y_train, y_train_pred))
+    print("Mean Absolute Testing Error: ", mean_absolute_error(y_test, y_test_pred))
+    print("Mean Squared Training Error: ", mean_squared_error(y_train, y_train_pred))
+    print("Mean Squared Testing Error: ", mean_squared_error(y_test, y_test_pred))
+    print("Mean Absolute Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
+    print("Mean Absolute Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
     new_y_train_pred, new_y_test_pred = prepare_plots(y, y_train, y_train_pred, y_test_pred)
     plot_data(y, new_y_train_pred, new_y_test_pred, ['Actual Ethereum Prices','Predicted Training Prices','Predicted Testing Prices'], 'RF ETH Price Prediction')
 
-def random_forest_ltc(dataset):
+def extra_trees_ltc(dataset):
     x, y, x_train, x_test, y_train, y_test = split_data(dataset)
     #Create model
     model = ExtraTreesRegressor()
@@ -844,12 +1056,16 @@ def random_forest_ltc(dataset):
     print("R2 Testing Score: ",r2_score(y_test, y_test_pred))
     print("Explained Variance Train Score: ",explained_variance_score(y_train, y_train_pred))
     print("Explained Variance Testing Score: ",explained_variance_score(y_test, y_test_pred))
-    print("Mean Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
-    print("Mean Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
+    print("Mean Absolute Training Error: ", mean_absolute_error(y_train, y_train_pred))
+    print("Mean Absolute Testing Error: ", mean_absolute_error(y_test, y_test_pred))
+    print("Mean Squared Training Error: ", mean_squared_error(y_train, y_train_pred))
+    print("Mean Squared Testing Error: ", mean_squared_error(y_test, y_test_pred))
+    print("Mean Absolute Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
+    print("Mean Absolute Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
     new_y_train_pred, new_y_test_pred = prepare_plots(y, y_train, y_train_pred, y_test_pred)
     plot_data(y, new_y_train_pred, new_y_test_pred, ['Actual Litecoin Prices','Predicted Training Prices','Predicted Testing Prices'], 'RF LTC Price Prediction')
 
-def random_forest_xrp(dataset):
+def extra_trees_ada(dataset):
     x, y, x_train, x_test, y_train, y_test = split_data(dataset)
     #Create model
     model = ExtraTreesRegressor()
@@ -860,12 +1076,36 @@ def random_forest_xrp(dataset):
     print("R2 Testing Score: ",r2_score(y_test, y_test_pred))
     print("Explained Variance Train Score: ",explained_variance_score(y_train, y_train_pred))
     print("Explained Variance Testing Score: ",explained_variance_score(y_test, y_test_pred))
-    print("Mean Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
-    print("Mean Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
+    print("Mean Absolute Training Error: ", mean_absolute_error(y_train, y_train_pred))
+    print("Mean Absolute Testing Error: ", mean_absolute_error(y_test, y_test_pred))
+    print("Mean Squared Training Error: ", mean_squared_error(y_train, y_train_pred))
+    print("Mean Squared Testing Error: ", mean_squared_error(y_test, y_test_pred))
+    print("Mean Absolute Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
+    print("Mean Absolute Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
+    new_y_train_pred, new_y_test_pred = prepare_plots(y, y_train, y_train_pred, y_test_pred)
+    plot_data(y, new_y_train_pred, new_y_test_pred, ['Actual Cardano Prices','Predicted Training Prices','Predicted Testing Prices'], 'RF ADA Price Prediction')
+
+def extra_trees_xrp(dataset):
+    x, y, x_train, x_test, y_train, y_test = split_data(dataset)
+    #Create model
+    model = ExtraTreesRegressor()
+    model.fit(x_train, y_train)
+    y_train_pred = model.predict(x_train)
+    y_test_pred = model.predict(x_test)
+    print("R2 Training Score: ",r2_score(y_train, y_train_pred))
+    print("R2 Testing Score: ",r2_score(y_test, y_test_pred))
+    print("Explained Variance Train Score: ",explained_variance_score(y_train, y_train_pred))
+    print("Explained Variance Testing Score: ",explained_variance_score(y_test, y_test_pred))
+    print("Mean Absolute Training Error: ", mean_absolute_error(y_train, y_train_pred))
+    print("Mean Absolute Testing Error: ", mean_absolute_error(y_test, y_test_pred))
+    print("Mean Squared Training Error: ", mean_squared_error(y_train, y_train_pred))
+    print("Mean Squared Testing Error: ", mean_squared_error(y_test, y_test_pred))
+    print("Mean Absolute Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
+    print("Mean Absolute Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
     new_y_train_pred, new_y_test_pred = prepare_plots(y, y_train, y_train_pred, y_test_pred)
     plot_data(y, new_y_train_pred, new_y_test_pred, ['Actual Ripple Prices','Predicted Training Prices','Predicted Testing Prices'], 'RF XRP Price Prediction')
 
-def random_forest_xlm(dataset):
+def extra_trees_xlm(dataset):
     x, y, x_train, x_test, y_train, y_test = split_data(dataset)
     #Create model
     model = ExtraTreesRegressor()
@@ -876,8 +1116,12 @@ def random_forest_xlm(dataset):
     print("R2 Testing Score: ",r2_score(y_test, y_test_pred))
     print("Explained Variance Train Score: ",explained_variance_score(y_train, y_train_pred))
     print("Explained Variance Testing Score: ",explained_variance_score(y_test, y_test_pred))
-    print("Mean Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
-    print("Mean Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
+    print("Mean Absolute Training Error: ", mean_absolute_error(y_train, y_train_pred))
+    print("Mean Absolute Testing Error: ", mean_absolute_error(y_test, y_test_pred))
+    print("Mean Squared Training Error: ", mean_squared_error(y_train, y_train_pred))
+    print("Mean Squared Testing Error: ", mean_squared_error(y_test, y_test_pred))
+    print("Mean Absolute Percentage Training Error: ", mean_absolute_percentage_error(y_train, y_train_pred))
+    print("Mean Absolute Percentage Testing Error: ", mean_absolute_percentage_error(y_test, y_test_pred))
     new_y_train_pred, new_y_test_pred = prepare_plots(y, y_train, y_train_pred, y_test_pred)
     plot_data(y, new_y_train_pred, new_y_test_pred, ['Actual Stellar Lummens Prices','Predicted Training Prices','Predicted Testing Prices'], 'RF XLM Price Prediction')
                     
@@ -917,6 +1161,180 @@ def incremental_model_daily_btc(dataset):
     plt.legend(loc='upper left')
     plt.show()
 
+def incremental_model_daily_eth(dataset):
+    #Create feature for future prices
+    names = ['Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume']
+    prices = pd.DataFrame(dataset.drop(['Date'], axis=1).values)
+    prices.columns = names
+    prediction_range = 30
+    test_size = int(len(prices)*0.2)
+    prices['Prediction'] = prices[['Close']].shift(-prediction_range)
+    #Split the data into x and y
+    x = np.array(prices.drop(['Close','Adj Close','Prediction'], axis=1))
+    x_true = x[:len(prices) - prediction_range]
+    y = np.array(prices['Prediction'])
+    y_true = y[: -prediction_range]
+    scaler = MinMaxScaler()
+    x_scaled = scaler.fit_transform(x)
+    model = HoeffdingAdaptiveTreeRegressor()
+    n_samples = 0
+    correct_pred = 0
+    pred_prices = []
+    while n_samples < x_scaled.shape[0]-30:
+        x, y = [x_true[n_samples]], [y_true[n_samples]]
+        model.partial_fit(x,y)
+        pred = model.predict(x)
+        if y == pred:
+            correct_pred += 1
+        n_samples += 1
+        pred_prices.append(pred)
+        print(y, pred)
+    print(r2_score(y_true, pred_prices))
+    plt.figure(figsize=(14,6))
+    plt.plot(y_true, 'b', label='Actual Prices')
+    plt.plot(pred_prices, 'r', label='Predicted Prices')
+    plt.legend(loc='upper left')
+    plt.show()
+
+def incremental_model_daily_ltc(dataset):
+    #Create feature for future prices
+    names = ['Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume']
+    prices = pd.DataFrame(dataset.drop(['Date'], axis=1).values)
+    prices.columns = names
+    prediction_range = 30
+    test_size = int(len(prices)*0.2)
+    prices['Prediction'] = prices[['Close']].shift(-prediction_range)
+    #Split the data into x and y
+    x = np.array(prices.drop(['Close','Adj Close','Prediction'], axis=1))
+    x_true = x[:len(prices) - prediction_range]
+    y = np.array(prices['Prediction'])
+    y_true = y[: -prediction_range]
+    scaler = MinMaxScaler()
+    x_scaled = scaler.fit_transform(x)
+    model = HoeffdingAdaptiveTreeRegressor()
+    n_samples = 0
+    correct_pred = 0
+    pred_prices = []
+    while n_samples < x_scaled.shape[0]-30:
+        x, y = [x_true[n_samples]], [y_true[n_samples]]
+        model.partial_fit(x,y)
+        pred = model.predict(x)
+        if y == pred:
+            correct_pred += 1
+        n_samples += 1
+        pred_prices.append(pred)
+        print(y, pred)
+    print(r2_score(y_true, pred_prices))
+    plt.figure(figsize=(14,6))
+    plt.plot(y_true, 'b', label='Actual Prices')
+    plt.plot(pred_prices, 'r', label='Predicted Prices')
+    plt.legend(loc='upper left')
+    plt.show()
+
+def incremental_model_daily_ada(dataset):
+    #Create feature for future prices
+    names = ['Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume']
+    prices = pd.DataFrame(dataset.drop(['Date'], axis=1).values)
+    prices.columns = names
+    prediction_range = 30
+    test_size = int(len(prices)*0.2)
+    prices['Prediction'] = prices[['Close']].shift(-prediction_range)
+    #Split the data into x and y
+    x = np.array(prices.drop(['Close','Adj Close','Prediction'], axis=1))
+    x_true = x[:len(prices) - prediction_range]
+    y = np.array(prices['Prediction'])
+    y_true = y[: -prediction_range]
+    scaler = MinMaxScaler()
+    x_scaled = scaler.fit_transform(x)
+    model = HoeffdingAdaptiveTreeRegressor()
+    n_samples = 0
+    correct_pred = 0
+    pred_prices = []
+    while n_samples < x_scaled.shape[0]-30:
+        x, y = [x_true[n_samples]], [y_true[n_samples]]
+        model.partial_fit(x,y)
+        pred = model.predict(x)
+        if y == pred:
+            correct_pred += 1
+        n_samples += 1
+        pred_prices.append(pred)
+        print(y, pred)
+    print(r2_score(y_true, pred_prices))
+    plt.figure(figsize=(14,6))
+    plt.plot(y_true, 'b', label='Actual Prices')
+    plt.plot(pred_prices, 'r', label='Predicted Prices')
+    plt.legend(loc='upper left')
+    plt.show()
+
+def incremental_model_daily_xrp(dataset):
+    #Create feature for future prices
+    names = ['Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume']
+    prices = pd.DataFrame(dataset.drop(['Date'], axis=1).values)
+    prices.columns = names
+    prediction_range = 30
+    test_size = int(len(prices)*0.2)
+    prices['Prediction'] = prices[['Close']].shift(-prediction_range)
+    #Split the data into x and y
+    x = np.array(prices.drop(['Close','Adj Close','Prediction'], axis=1))
+    x_true = x[:len(prices) - prediction_range]
+    y = np.array(prices['Prediction'])
+    y_true = y[: -prediction_range]
+    scaler = MinMaxScaler()
+    x_scaled = scaler.fit_transform(x)
+    model = HoeffdingAdaptiveTreeRegressor()
+    n_samples = 0
+    correct_pred = 0
+    pred_prices = []
+    while n_samples < x_scaled.shape[0]-30:
+        x, y = [x_true[n_samples]], [y_true[n_samples]]
+        model.partial_fit(x,y)
+        pred = model.predict(x)
+        if y == pred:
+            correct_pred += 1
+        n_samples += 1
+        pred_prices.append(pred)
+        print(y, pred)
+    print(r2_score(y_true, pred_prices))
+    plt.figure(figsize=(14,6))
+    plt.plot(y_true, 'b', label='Actual Prices')
+    plt.plot(pred_prices, 'r', label='Predicted Prices')
+    plt.legend(loc='upper left')
+    plt.show()
+
+def incremental_model_daily_xlm(dataset):
+    #Create feature for future prices
+    names = ['Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume']
+    prices = pd.DataFrame(dataset.drop(['Date'], axis=1).values)
+    prices.columns = names
+    prediction_range = 30
+    test_size = int(len(prices)*0.2)
+    prices['Prediction'] = prices[['Close']].shift(-prediction_range)
+    #Split the data into x and y
+    x = np.array(prices.drop(['Close','Adj Close','Prediction'], axis=1))
+    x_true = x[:len(prices) - prediction_range]
+    y = np.array(prices['Prediction'])
+    y_true = y[: -prediction_range]
+    scaler = MinMaxScaler()
+    x_scaled = scaler.fit_transform(x)
+    model = HoeffdingAdaptiveTreeRegressor()
+    n_samples = 0
+    correct_pred = 0
+    pred_prices = []
+    while n_samples < x_scaled.shape[0]-30:
+        x, y = [x_true[n_samples]], [y_true[n_samples]]
+        model.partial_fit(x,y)
+        pred = model.predict(x)
+        if y == pred:
+            correct_pred += 1
+        n_samples += 1
+        pred_prices.append(pred)
+        print(y, pred)
+    print(r2_score(y_true, pred_prices))
+    plt.figure(figsize=(14,6))
+    plt.plot(y_true, 'b', label='Actual Prices')
+    plt.plot(pred_prices, 'r', label='Predicted Prices')
+    plt.legend(loc='upper left')
+    plt.show()
 """def incremental_model_minute_btc():
     model = HoeffdingAdaptiveTreeRegressor()
     pred_prices = []
