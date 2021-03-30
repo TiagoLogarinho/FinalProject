@@ -1,0 +1,221 @@
+Linear Regression:
+ - BTC: R2: 0.91
+	ExVar: 0.92
+	MAE: 1755.008
+	MSE: 10373598.035
+	MAPE: 0.09
+
+ - ETH: R2: 0.91
+	ExVar: 0.93
+	MAE: 70.20
+	MSE: 15846.63
+	MAPE: 0.13
+
+ - LTC: R2: 0.84
+	ExVar: 0.85
+	MAE: 10.31
+	MSE: 283.67
+	MAPE: 0.12
+
+ - ADA: R2: 0.51
+	ExVar: 0.77
+	MAE: 0.18
+	MSE: 0.06
+	MAPE: 0.28
+
+ - XRP: R2: -0.24
+	ExVar: -0.04
+	MAE: 0.07
+	MSE: 0.01
+	MAPE:  0.24
+
+ - XLM: R2: 0.81
+	ExVar: 0.82
+	MAE: 0.021
+	MSE: 0.002
+	MAPE: 0.14
+
+Support Vector Regressor:
+ - BTC: R2: 0.30
+	ExVar: 0.31
+	MAE: 4199.84
+	MSE: 86936280.35
+	MAPE: 0.21
+
+ - ETH: R2: 0.91
+	ExVar: 0.91
+	MAE: 69.08
+	MSE: 16822.46
+	MAPE: 0.144
+
+ - LTC: R2: 0.84
+	ExVar: 0.84
+	MAE: 10.12
+	MSE: 279.26
+	MAPE: 0.12
+
+- ADA: R2: 0.52
+	ExVar: 0.77
+	MAE: 0.17
+	MSE: 0.059
+	MAPE: 0.28
+
+ - XRP: R2: 0.26
+	ExVar: 0.28
+	MAE: 0.05
+	MSE: 0.009
+	MAPE: 0.17
+
+ - XLM: R2: 0.81
+	ExVar: 0.82
+	MAE: 0.02
+	MSE: 0.001
+	MAPE: 0.14
+
+MLPRegressor:
+ - BTC: R2: 0.91
+	ExVar: 0.92
+	MAE: 1732.55
+	MSE: 10493211.28
+	MAPE: 0.09
+
+ - ETH: R2: 0.91
+	ExVar: 0.92
+	MAE: 69.98
+	MSE: 16171.89
+	MAPE: 0.13
+
+ - LTC: R2: 0.84
+	ExVar: 0.84
+	MAE: 10.26
+	MSE: 286.05
+	MAPE: 0.12
+
+ - ADA: R2: 0.43
+	ExVar: 0.74
+	MAE: 0.19
+	MSE: 0.07
+	MAPE: 0.31
+
+ - XRP: R2: 0.47
+	ExVar: 0.48
+	MAE: 0.04
+	MSE: 0.006
+	MAPE: 0.15
+
+ - XLM: R2: 0.82
+	ExVar: 0.83
+	MAE: 0.021
+	MSE: 0.001
+	MAPE: 0.15
+
+ExtraTrees:
+ - BTC: R2: 
+	ExVar: 
+	MAE: 
+	MSE: 
+	MAPE: 
+
+ - ETH: R2: 
+	ExVar: 
+	MAE: 
+	MSE: 
+	MAPE: 
+
+ - LTC: R2: 
+	ExVar: 
+	MAE: 
+	MSE: 
+	MAPE:
+
+ - ADA: R2: 
+	ExVar: 
+	MAE: 
+	MSE: 
+	MAPE: 
+
+ - XRP: R2: 
+	ExVar: 
+	MAE: 
+	MSE: 
+	MAPE: 
+
+ - XLM: R2: 
+	ExVar: 
+	MAE: 
+	MSE: 
+	MAPE: 
+
+LSTM:
+ - BTC: R2: 
+	ExVar: 
+	MAE: 
+	MSE: 
+	MAPE: 
+
+ - ETH: R2:
+	ExVar:
+	MAE:
+	MSE:
+	MAPE:
+
+ - LTC: R2:
+	ExVar:
+	MAE:
+	MSE:
+	MAPE:
+
+ - ADA: R2:
+	ExVar:
+	MAE:
+	MSE:
+	MAPE:
+
+ - XRP: R2:
+	ExVar:
+	MAE:
+	MSE:
+	MAPE:
+
+ - XLM: R2:
+	ExVar:
+	MAE:
+	MSE:
+	MAPE:
+
+HoeffdingAdaptiveTrees:
+ - BTC: R2:
+	ExVar:
+	MAE:
+	MSE:
+	MAPE:
+
+ - ETH: R2:
+	ExVar:
+	MAE:
+	MSE:
+	MAPE:
+
+ - LTC: R2:
+	ExVar:
+	MAE:
+	MSE:
+	MAPE:
+
+ - ADA: R2:
+	ExVar:
+	MAE:
+	MSE:
+	MAPE:
+
+ - XRP: R2:
+	ExVar:
+	MAE:
+	MSE:
+	MAPE:
+
+ - XLM: R2:
+	ExVar:
+	MAE:
+	MSE:
+	MAPE:
