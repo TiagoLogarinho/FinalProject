@@ -110,112 +110,112 @@ MLPRegressor:
 	MAPE: 0.15
 
 ExtraTrees:
- - BTC: R2: 
-	ExVar: 
-	MAE: 
-	MSE: 
-	MAPE: 
+ - BTC: R2: 0.17
+	ExVar: 0.31
+	MAE: 4868.54
+	MSE: 102384764.64
+	MAPE: 0.19
 
- - ETH: R2: 
-	ExVar: 
-	MAE: 
-	MSE: 
-	MAPE: 
+ - ETH: R2: 0.82
+	ExVar: 0.84
+	MAE: 96.84
+	MSE: 32752.42
+	MAPE: 0.16
 
- - LTC: R2: 
-	ExVar: 
-	MAE: 
-	MSE: 
-	MAPE:
+ - LTC: R2: 0.77
+	ExVar: 0.77
+	MAE: 12.24
+	MSE: 414.37
+	MAPE:0.15
 
- - ADA: R2: 
-	ExVar: 
-	MAE: 
-	MSE: 
-	MAPE: 
+ - ADA: R2: -1.3
+	ExVar: -0.01
+	MAE: 0.40
+	MSE: 0.29
+	MAPE: 0.60
 
- - XRP: R2: 
-	ExVar: 
-	MAE: 
-	MSE: 
-	MAPE: 
+ - XRP: R2: 0.12
+	ExVar: 0.16
+	MAE: 0.06
+	MSE: 0.01
+	MAPE: 0.20
 
- - XLM: R2: 
-	ExVar: 
-	MAE: 
-	MSE: 
-	MAPE: 
+ - XLM: R2: 0.76
+	ExVar: 0.77
+	MAE: 0.02
+	MSE: 0.002
+	MAPE: 0.18
 
 LSTM:
- - BTC: R2: 
-	ExVar: 
-	MAE: 
-	MSE: 
-	MAPE: 
+ - BTC: R2: 0.96
+	ExVar: 0.96
+	MAE: 0.01
+	MSE: 0.0009
+	MAPE: 0.07
 
- - ETH: R2:
-	ExVar:
-	MAE:
-	MSE:
-	MAPE:
+ - ETH: R2: 0.93
+	ExVar: 0.95
+	MAE: 0.03
+	MSE: 0.002
+	MAPE: 0.17
 
- - LTC: R2:
-	ExVar:
-	MAE:
-	MSE:
-	MAPE:
+ - LTC: R2: 0.86
+	ExVar: 0.88
+	MAE: 0.02
+	MSE: 0.001
+	MAPE: 0.12
 
- - ADA: R2:
-	ExVar:
-	MAE:
-	MSE:
-	MAPE:
+ - ADA: R2: 0.79
+	ExVar: 0.87
+	MAE: 0.06
+	MSE: 0.006
+	MAPE: 0.18
 
- - XRP: R2:
-	ExVar:
-	MAE:
-	MSE:
-	MAPE:
+ - XRP: R2: 0.51
+	ExVar: 0.63
+	MAE: 0.01
+	MSE: 0.0005
+	MAPE: 0.20
 
- - XLM: R2:
-	ExVar:
-	MAE:
-	MSE:
-	MAPE:
+ - XLM: R2: 0.85
+	ExVar: 0.86
+	MAE: 0.02
+	MSE: 0.001
+	MAPE: 0.16
 
 HoeffdingAdaptiveTrees:
- - BTC: R2:
-	ExVar:
-	MAE:
-	MSE:
-	MAPE:
+ - BTC: R2: 0.95
+	ExVar: 0.95
+	MAE: 723.11
+	MSE: 2660757.20
+	MAPE: 0.09
 
- - ETH: R2:
-	ExVar:
-	MAE:
-	MSE:
-	MAPE:
+ - ETH: R2: 0.93
+	ExVar: 0.93
+	MAE: 45.10
+	MSE: 6665.18
+	MAPE: 0.18
 
- - LTC: R2:
-	ExVar:
-	MAE:
-	MSE:
-	MAPE:
+ - LTC: R2: 0.90
+	ExVar: 0.90
+	MAE: 8.05
+	MSE: 289.86
+	MAPE: 0.12
 
- - ADA: R2:
-	ExVar:
-	MAE:
-	MSE:
-	MAPE:
+ - ADA: R2: 0.92
+	ExVar: 0.93
+	MAE: 0.03
+	MSE: 0.004
+	MAPE: 0.16
 
- - XRP: R2:
-	ExVar:
-	MAE:
-	MSE:
-	MAPE:
+ - XRP: R2: 0.87
+	ExVar: 0.87
+	MAE: 0.04
+	MSE: 0.01
+	MAPE: 0.14
 
- - XLM: R2:
-	ExVar:
-	MAE:
-	MSE:
-	MAPE:
+ - XLM: R2: 0.90
+	ExVar: 0.90
+	MAE: 0.01
+	MSE: 0.001
+	MAPE: 0.15

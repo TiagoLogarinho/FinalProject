@@ -826,7 +826,7 @@ def incremental_model_daily_btc(dataset):
     n_samples = 0
     correct_pred = 0
     pred_prices = []
-    while n_samples < x_scaled.shape[0]-30:
+    while n_samples < x_scaled.shape[0]-10:
         x, y = [x_true[n_samples]], [y_true[n_samples]]
         model.partial_fit(x,y)
         pred = model.predict(x)
@@ -864,7 +864,7 @@ def incremental_model_daily_eth(dataset):
     n_samples = 0
     correct_pred = 0
     pred_prices = []
-    while n_samples < x_scaled.shape[0]-30:
+    while n_samples < x_scaled.shape[0]-10:
         x, y = [x_true[n_samples]], [y_true[n_samples]]
         model.partial_fit(x,y)
         pred = model.predict(x)
@@ -902,7 +902,7 @@ def incremental_model_daily_ltc(dataset):
     n_samples = 0
     correct_pred = 0
     pred_prices = []
-    while n_samples < x_scaled.shape[0]-30:
+    while n_samples < x_scaled.shape[0]-10:
         x, y = [x_true[n_samples]], [y_true[n_samples]]
         model.partial_fit(x,y)
         pred = model.predict(x)
@@ -940,7 +940,7 @@ def incremental_model_daily_ada(dataset):
     n_samples = 0
     correct_pred = 0
     pred_prices = []
-    while n_samples < x_scaled.shape[0]-30:
+    while n_samples < x_scaled.shape[0]-10:
         x, y = [x_true[n_samples]], [y_true[n_samples]]
         model.partial_fit(x,y)
         pred = model.predict(x)
@@ -978,7 +978,7 @@ def incremental_model_daily_xrp(dataset):
     n_samples = 0
     correct_pred = 0
     pred_prices = []
-    while n_samples < x_scaled.shape[0]-30:
+    while n_samples < x_scaled.shape[0]-10:
         x, y = [x_true[n_samples]], [y_true[n_samples]]
         model.partial_fit(x,y)
         pred = model.predict(x)
@@ -1016,7 +1016,7 @@ def incremental_model_daily_xlm(dataset):
     n_samples = 0
     correct_pred = 0
     pred_prices = []
-    while n_samples < x_scaled.shape[0]-30:
+    while n_samples < x_scaled.shape[0]-10:
         x, y = [x_true[n_samples]], [y_true[n_samples]]
         model.partial_fit(x,y)
         pred = model.predict(x)
